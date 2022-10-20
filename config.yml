@@ -1,0 +1,11 @@
+general:
+  iterations: 1000
+  duration: 10 #Seconds
+
+ap:
+  ul-ofdma: enabled
+  ul-ofdma-scheme: fixed
+  haptic:
+    traffic-generation: periodic
+
+stas:
