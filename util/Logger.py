@@ -40,6 +40,9 @@ class Logfiles(Enum):
 
 
 class Logger:
+    """
+    Singleton logger
+    """
     __instance = None
 
     def __init__(self, output_dir: str = None):
@@ -74,6 +77,33 @@ class Logger:
         :param additional_file_parameter: Extension of basename for ACCESS_COLLISION files.
         :param newline: If True, print a newline after the message. Default True.
         """
+        filename = self.resolve_filename(file, additional_file_parameter)
+        self.log_to_filename(filename)
+
+    def log_to_filename(self, filename: str, message: str, newline: bool = True):
+        """
+        Append the message to the specified file.
+        In general, it is recommended to use either Logger.log or FileLogger.log instead, to prevent typos.
+
+        :param filename: Filename of file to log to.
+        :param message: Message to log.
+        :param newline: If True, print a newline after the message. Default True.
+        """
+        with open(self.output_dir / filename, 'a') as f:
+            f.write(message)
+            if newline:
+                f.write('\n')
+
+    @staticmethod
+    def resolve_filename(file: Logfiles, additional_file_parameter) -> str:
+        """
+        Resolve a Logfiles enum to a filename.
+        If file is Logfiles.ACCESS_COLLISION, additional_file_parameter is required, otherwise it is ignored.
+
+        :param file: File to log to.
+        :param additional_file_parameter: Extension of basename for ACCESS_COLLISION files.
+        :return: Filename of file.
+        """
         if file == Logfiles.ACCESS_COLLISION:
             if not additional_file_parameter:
                 raise AttributeError("Additional file parameter is required for logging to access_collision files")
@@ -81,9 +111,7 @@ class Logger:
                 (basename, extension) = file.value.split(".")
                 filename = f"{basename}_{str(additional_file_parameter)}.{extension}"
         else:
+            if additional_file_parameter:
+                print(f"Ignoring additional file parameter {str(additional_file_parameter)} for file {file.value}.")
             filename = file.value
-
-        with open(self.output_dir / filename, 'a') as f:
-            f.write(message)
-            if newline:
-                f.write('\n')
+        return filename
