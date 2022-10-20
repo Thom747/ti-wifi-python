@@ -1,11 +1,38 @@
-general:
-  iterations: 1000
-  duration: 10 #Seconds
+# Example configuration file for simulator
+# Options in parentheses are not implemented yet.
+
+simulation:
+  iterations: 1000 # Count, number of repetitions of simulation
+  duration: 10 # Seconds, how long to simulate for
+
+channel:
+  bitrate: 16000000 # Bits per second
 
 ap:
-  ul-ofdma: enabled
-  ul-ofdma-scheme: fixed
-  haptic:
-    traffic-generation: periodic
+  ul_ofdma:
+    enabled: True # Boolean, AP will not schedule UL-OFDMA if False
+    scheme: fixed # Valid values: fixed (, proportional)
+  kinematic:
+    queue_size: 0 # Frames, <=0 for infinite
+    packet_generation:
+      type: periodic # Valid values: disabled, periodic, random (, correlated)
+      rate: 1000 # Hz, for periodic single value, for random a tuple of (min_rate, max_rate) (, unused for correlated)
+      size: 400 # Bytes
+      start_time: random # Seconds, if set to "random", will set the starting time to a value in the range (0, 1/(max_)rate)
 
 stas:
+  amount: 1
+  haptic:
+    queue_size: 0 # Frames, <=0 for infinite
+    packet_generation:
+      type: periodic # Valid values: disabled, periodic, random (, correlated)
+      rate: 1000 # Hz, for periodic single value, for random a tuple of (min_rate, max_rate) (, unused for correlated)
+      size: 400 # Bytes
+      start_time: random # Seconds, if set to "random", will set the starting time to a value in the range (0, 1/(max_)rate)
+  video:
+    queue_size: 0 # Frames, <=0 for infinite
+    packet_generation:
+      type: periodic # Valid values: disabled, periodic, random (, correlated)
+      rate: 59 # Hz, for periodic single value, for random a tuple of (min_rate, max_rate) (, unused for correlated)
+      size: 32000 # Bytes
+      start_time: random # Seconds, if set to "random", will set the starting time to a value in the range (0, 1/(max_)rate)
