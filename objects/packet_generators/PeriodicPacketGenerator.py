@@ -5,6 +5,9 @@ from ABCPacketGenerator import ABCPacketGenerator
 
 
 class PeriodicPacketGenerator(ABCPacketGenerator):
+    """
+    Packet generator that will generate packets at a constant rate
+    """
 
     def __init__(self, configuration: Dict):
         if configuration["type"] != "periodic":

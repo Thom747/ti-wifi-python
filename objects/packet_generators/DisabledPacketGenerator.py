@@ -4,6 +4,9 @@ from objects.packet_generators.ABCPacketGenerator import ABCPacketGenerator
 
 
 class DisabledPacketGenerator(ABCPacketGenerator):
+    """
+    Packet generator that will not generate any packets
+    """
     def __init__(self, configuration):
         if configuration["type"] != "disabled":
             raise ValueError("Attempted to create a DisabledPacketGenerator with non-disabled configuration")

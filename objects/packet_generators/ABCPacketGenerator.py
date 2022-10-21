@@ -27,6 +27,9 @@ def create_packet_generator(configuration: Dict) -> "ABCPacketGenerator":
 
 
 class ABCPacketGenerator(ABC):
+    """
+    Abstract base class for Packet Generators
+    """
     @abstractmethod
     def __init__(self, configuration: Dict):
         """

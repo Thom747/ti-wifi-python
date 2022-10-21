@@ -5,6 +5,9 @@ from ABCPacketGenerator import ABCPacketGenerator
 
 
 class RandomPacketGenerator(ABCPacketGenerator):
+    """
+    Packet generator that will generate packets at random intervals, with a minimum and maximum rate
+    """
 
     def __init__(self, configuration: Dict):
         if configuration["type"] != "random":
