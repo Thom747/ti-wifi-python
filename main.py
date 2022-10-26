@@ -40,8 +40,8 @@ def main():
     Run the simulator.
     """
     arguments: Namespace = parse_arguments()
-    parse_config(arguments.config_path)
-    
+    config = parse_config(arguments.config_path)
+    print(config)
     Logger(arguments.output_path)
 
 

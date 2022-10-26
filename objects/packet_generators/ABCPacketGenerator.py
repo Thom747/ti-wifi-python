@@ -12,18 +12,18 @@ def create_packet_generator(configuration: Dict) -> "ABCPacketGenerator":
     :param configuration: Dictionary containing configuration of packet generator. See config.yml for an example.
     :return: a packet generator conforming to the specified configuration.
     """
-    type = configuration["type"]
-    if type == "periodic":
+    packet_generator_type = configuration["type"]
+    if packet_generator_type == "periodic":
         return PeriodicPacketGenerator(configuration)
-    elif type == "random":
+    elif packet_generator_type == "random":
         return RandomPacketGenerator(configuration)
-    elif type == "disabled":
+    elif packet_generator_type == "disabled":
         return DisabledPacketGenerator(configuration)
-    elif type == "correlated":
+    elif packet_generator_type == "correlated":
         # TODO: Implement correlated packet generator
         raise NotImplementedError("Correlated packet generator is not implemented yet")
     else:
-        raise ValueError(f"Value {type} is not a valid type of packet generator")
+        raise ValueError(f"Value {packet_generator_type} is not a valid type of packet generator")
 
 
 class ABCPacketGenerator(ABC):
